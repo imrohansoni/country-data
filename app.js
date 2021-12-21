@@ -38,6 +38,7 @@ const getCountryData = async function (country_name, search_by = 'name') {
     if (!country_data.ok) {
       throw new Error('country not found');
     }
+
     const [data] = await country_data.json();
     const countryName = data.name.common;
     const continent = data.continents[0];
@@ -45,6 +46,7 @@ const getCountryData = async function (country_name, search_by = 'name') {
     const language = Object.values(data.languages).join(', ').toLowerCase();
     const currency = Object.values(data.currencies)[0].name;
 
+    console.log(data);
     const countryNameHeading = `<h1 class="country_name_heading">${countryName}</h1>`;
 
     countryCardContainer.insertAdjacentHTML('afterbegin', countryNameHeading);
@@ -128,6 +130,13 @@ const getNeighbourData = async function (n) {
     '.country_image'
   ).style.backgroundImage = `url(${data.flags.svg})`;
 };
+
+neighbourCardContainer.addEventListener('click', function (e) {
+  if (e.target.closest('.country_card')) {
+    const countryName = e.target.closest('.country_card').dataset.country_name;
+    getCountryData(countryName);
+  }
+});
 
 const input = function () {
   document.addEventListener('keypress', function (e) {
