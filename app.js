@@ -45,8 +45,6 @@ const getCountryData = async function (country_name, search_by = 'name') {
     const population = data.population;
     const language = Object.values(data.languages).join(', ').toLowerCase();
     const currency = Object.values(data.currencies)[0].name;
-
-    console.log(data);
     const countryNameHeading = `<h1 class="country_name_heading">${countryName}</h1>`;
 
     countryCardContainer.insertAdjacentHTML('afterbegin', countryNameHeading);
